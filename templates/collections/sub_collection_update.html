@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static widget_tweaks humanize %}
+
+{% block content %}
+    <div class="page-body">
+          <div class="container-fluid">
+            <div class="page-header">
+              <div class="row">
+                <div class="col-sm-12">
+                    {% if updater %}
+                        <h3>Редактирование категории # {{ collection.id }}</h3>
+                        {% else %}
+                            <h3>Редактирование коллекции # {{ sub_collection.id }}</h3>
+                    {% endif %}
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Категории</a></li>
+                    <li class="breadcrumb-item"><a href="/">Список категорий</a></li>
+                    <li class="breadcrumb-item">
+                        {% if updater %}
+                            <a href="{% url 'collection_detail_view' collection.id %}">
+                                Информация о категории
+                            </a>
+                            {% else %}
+                                <a href="{% url 'collection_detail_view' sub_collection.collection_id %}">
+                                    Информация о коллекции
+                                </a>
+                        {% endif %}
+                    </li>
+                    {% if updater %}
+                        <li class="breadcrumb-item">Редактирование категории</li>
+                        {% else %}
+                            <li class="breadcrumb-item">Редактирование коллекции</li>
+                    {% endif %}
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Container-fluid starts-->
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="form theme-form">
+                        <form method="POST">
+                            {% csrf_token %}
+                            {% for f in form %}
+                                <div class="row">
+                                    <div class="col">
+                                      <div class="mb-3">
+                                        <label>{{ f.label_tag }}</label>
+                                        {% if f.label == "Имеет подколлекцию" %}
+                                            {{ f|add_class:'form-checkbox'|attr:'rows' }}
+                                            {% else %}
+                                                {{ f|add_class:'form-control'|attr:'rows' }}
+                                        {% endif %}
+                                      </div>
+                                    </div>
+                                  </div>
+                            {% endfor %}
+                          <div class="row">
+                            <div class="col">
+                              <div class="text-end">
+                                <button class="btn btn-secondary me-3" type="submit">
+                                    Изменить
+                                </button>
+                                {% if updater %}
+                                   <a class="btn btn-danger"
+                                    href="{% url 'collection_detail_view' collection.id %}">
+                                        Отмена
+                                    </a>
+                                    {% else %}
+                                        <a class="btn btn-danger"
+                                        href="{% url 'collection_detail_view' sub_collection.collection_id %}">
+                                            Отмена
+                                        </a>
+                                {% endif %}
+                              </div>
+                            </div>
+                          </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Container-fluid Ends-->
+        </div>
+{% endblock content %}
+
+{% block extra_js %}
+    <script>
+    </script>
+{% endblock extra_js %}

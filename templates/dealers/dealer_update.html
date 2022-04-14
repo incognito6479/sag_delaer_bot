@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static widget_tweaks humanize %}
+
+{% block content %}
+    <div class="page-body">
+          <div class="container-fluid">
+            <div class="page-header">
+              <div class="row">
+                <div class="col-sm-6">
+                  <h3>Редактирование дилера # {{ dealer.id }}</h3>
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'dealer_list_view' %}">Список дилеров</a></li>
+                    <li class="breadcrumb-item">Редактирование дилера # {{ dealer.id }}</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Container-fluid starts-->
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="form theme-form">
+                        <form method="POST">
+                            {% csrf_token %}
+                            {% for f in form %}
+                                <div class="row">
+                                    <div class="col">
+                                      <div class="mb-3">
+                                        <label>{{ f.label_tag }}</label>
+                                        {{ f|add_class:'form-control'|attr:'rows' }}
+                                      </div>
+                                    </div>
+                                  </div>
+                            {% endfor %}
+                          <div class="row">
+                            <div class="col">
+                              <div class="text-end">
+                                <button class="btn btn-secondary me-3" type="submit">
+                                    Изменить
+                                </button>
+                               <a class="btn btn-danger"
+                                href="{% url 'dealer_list_view' %}">
+                                    Отмена
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Container-fluid Ends-->
+        </div>
+{% endblock content %}
+
+{% block extra_js %}
+    <script>
+    </script>
+{% endblock extra_js %}
