@@ -65,7 +65,7 @@ async def echo(message: types.Message):
     if sent_answer is False:
         if message.text == '🏞 Каталог':
             # check = db.check_user(message.chat.id)
-            UserChatId.objects.get_or_create(user_id=message.chat.id)
+            ChatUser.objects.get_or_create(user_id=message.chat.id)
             # if not check:
             #     db.create_user(message.chat.id)
             await message.answer('Выберите коллекцию', reply_markup=kb.get_collections_kb(message))
@@ -86,7 +86,7 @@ def send_sms_to_users_collections(collection_obj):
     text += f"\n\nНазвание коллекции: \n        {collection_obj.name}\n"
     text += f"\nСсылка: \n        {collection_obj.link}\n"
     text += f"\n🏞Категория: \n        {collection_obj.collection}\n"
-    users = UserChatId.objects.all()
+    users = ChatUser.objects.all()
     for user in users:
         requests.get(f"https://api.telegram.org/bot{env('API_TOKEN')}/sendMessage?chat_id={user.user_id}&text={text}")
     print(text)

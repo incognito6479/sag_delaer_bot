@@ -17,7 +17,7 @@ class SubCollectionModelAdmin(admin.ModelAdmin):
     list_display = ('name', 'link', 'collection')
 
 
-@admin.register(UserChatId)
+@admin.register(ChatUser)
 class UserModelAdmin(admin.ModelAdmin):
     pass
 

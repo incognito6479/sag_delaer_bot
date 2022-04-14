@@ -1,8 +1,8 @@
 from django.db import models
 
 
-class UserChatId(models.Model):
-    user_id = models.CharField(max_length=500, verbose_name="ID пользователя")
+class ChatUser(models.Model):
+    user_id = models.BigIntegerField(verbose_name="ID пользователя")
 
     def __str__(self):
         return f"{self.user_id}"
