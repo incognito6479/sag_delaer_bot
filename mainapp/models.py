@@ -25,7 +25,7 @@ class City(models.Model):
 
 class Collection(models.Model):
     name = models.CharField(max_length=200, verbose_name="Имя")
-    comment = models.CharField(max_length=200, null=True, blank=True, verbose_name="Комментарий")
+    # comment = models.CharField(max_length=200, null=True, blank=True, verbose_name="Комментарий")
 
     # has_sub = models.BooleanField(verbose_name="Имеет подколлекцию")
 
