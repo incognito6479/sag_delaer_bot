@@ -83,16 +83,15 @@ async def echo(message: types.Message):
             await message.answer('Используйте меню для пользования ботом', reply_markup=kb.start_kb)
 
 
-def send_sms_to_users_collections(collection_obj):
-    text = f"        ❗️Новая коллекция ❗        \n"
-    text += f"\n\nНазвание коллекции: \n        {collection_obj.name}\n"
-    text += f"\nСсылка: \n        {collection_obj.link}\n"
-    text += f"\n🏞Категория: \n        {collection_obj.collection}\n"
-    users = ChatUser.objects.all()
-    for user in users:
-        requests.get(f"https://api.telegram.org/bot{env('API_TOKEN')}/sendMessage?chat_id={user.user_id}&text={text}")
-    print(text)
-    return
+# def send_sms_to_users_collections(collection_obj):
+#     text = f"        ❗️Новая коллекция ❗        \n"
+#     text += f"\n\nНазвание коллекции: \n        {collection_obj.name}\n"
+#     text += f"\nСсылка: \n        {collection_obj.link}\n"
+#     text += f"\n🏞Категория: \n        {collection_obj.collection}\n"
+#     users = ChatUser.objects.all()
+#     for user in users:
+#         requests.get(f"https://api.telegram.org/bot{env('API_TOKEN')}/sendMessage?chat_id={user.user_id}&text={text}")
+#     return
 
 
 if __name__ == '__main__':

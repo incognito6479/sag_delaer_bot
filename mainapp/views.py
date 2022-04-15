@@ -4,10 +4,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import View, ListView, CreateView, DetailView, UpdateView, DeleteView
-
-from tg_bot import send_sms_to_users_collections
+from mainapp.tasks import send_sms_to_users_collections
 from mainapp.models import *
 from mainapp.forms import *
+# from mainapp.task import send_sms_to_users_collections
 
 
 def url_dispatch(request):
@@ -191,7 +191,7 @@ def sub_collection_create_view(request, pk):
         name=request.POST.get('name'),
         link=request.POST.get('link')
     )
-    send_sms_to_users_collections(obj)
+    send_sms_to_users_collections.delay(obj.id)
     return redirect('collection_detail_view', pk=pk)
 
 

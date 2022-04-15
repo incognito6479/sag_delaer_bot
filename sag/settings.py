@@ -9,6 +9,9 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
+# -*- coding: utf-8 -*-
+from __future__ import absolute_import
+
 import os
 from pathlib import Path
 
@@ -39,6 +42,7 @@ INSTALLED_APPS = [
     'mainapp',
     'widget_tweaks',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -132,3 +136,17 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # AUTH_USER_MODEL = 'mainapp.User'
 
+# CELERY_BROKER_URL = 'redis://localhost:6379'
+# CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+# CELERY_ACCEPT_CONTENT = ['application/json']
+# CELERY_RESULT_SERIALIZER = 'json'
+# CELERY_TASK_SERIALIZER = 'json'
+# CELERY_STORE_ERRORS_EVEN_IF_IGNORED = True
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
