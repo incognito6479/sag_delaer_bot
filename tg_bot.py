@@ -29,28 +29,36 @@ async def send_welcome(message: types.Message):
 @dp.message_handler()
 async def echo(message: types.Message):
     sent_answer = False
-    cities = City.objects.all()
-    dealers = Dealer.objects.all()
-    collections = Collection.objects.all()
-    sub_collections = SubCollection.objects.all()
-    for collection in collections:
-        if message.text == collection.name:
-            sent_answer = True
-            text = 'Выберите коллекцию ' + collection.name
-            await message.answer(text, reply_markup=kb.get_sub_collections_kb(collection.id))
-    for sub_collection in sub_collections:
-        if message.text == sub_collection.name:
-            sent_answer = True
-            await message.answer(sub_collection.link)
-    for city in cities:
-        if message.text in city.name:
-            text = ''
-            for dealer in dealers:
-                if dealer.city_id == city.id:
-                    text += dealer.name + '\n📍 Адрес: ' + dealer.address
-                    text += '\n☎️ Телефон: ' + dealer.phone + '\n\n'
-            sent_answer = True
-            await message.answer(text)
+    # cities = City.objects.all()
+    # dealers = Dealer.objects.all()
+    # collections = Collection.objects.all()
+    # sub_collections = SubCollection.objects.all()
+    # for collection in collections:
+    collection = Collection.objects.filter(name=message.text)
+    if collection:
+        collection = collection.first()
+        sent_answer = True
+        text = 'Выберите коллекцию ' + collection.name
+        await message.answer(text, reply_markup=kb.get_sub_collections_kb(collection.id))
+    # for sub_collection in sub_collections:
+    sub_collection = SubCollection.objects.filter(name=message.text)
+    if sub_collection:
+        sub_collection = sub_collection.first()
+        sent_answer = True
+        await message.answer(sub_collection.link)
+    # for city in cities:
+    city = City.objects.filter(name=message.text)
+    if city:
+        city = city.first()
+        text = ''
+        dealer = Dealer.objects.filter(city_id=city.id)
+        # for dealer in dealers:
+        if dealer:
+            dealer = dealer.first()
+            text += dealer.name + '\n📍 Адрес: ' + dealer.address
+            text += '\n☎️ Телефон: ' + dealer.phone + '\n\n'
+        sent_answer = True
+        await message.answer(text)
     if sent_answer is False:
         if message.text == '🏞 Каталог':
             ChatUser.objects.get_or_create(user_id=message.chat.id)

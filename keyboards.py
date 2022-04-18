@@ -6,9 +6,6 @@ django.setup()
 
 from aiogram import types
 from mainapp.models import *
-# from sqlither import SQLighter
-
-# db = SQLighter('db.sqlite3')
 
 buttons = {
     'catalog': types.KeyboardButton('🏞 Каталог'),
@@ -23,7 +20,6 @@ start_kb.add(buttons['catalog']).add(buttons['dealers']).add(buttons['contacts']
 
 def get_collections_kb(message):
     collections_kb = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    # collections = db.get_collections()
     collections = Collection.objects.all()
     n = 1
     keyboard = {}
@@ -51,7 +47,6 @@ def get_collections_kb(message):
 
 def get_sub_collections_kb(collection):
     sub_collections_kb = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    # sub_collections = db.get_sub_collections()
     sub_collections = SubCollection.objects.all()
     for sub_collection in sub_collections:
         if sub_collection.collection_id == collection:
@@ -63,7 +58,6 @@ def get_sub_collections_kb(collection):
 
 def get_dealers_kb():
     dealers_kb = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    # cities = db.get_cities()
     cities = City.objects.all()
     n = 1
     keyboard = {}
