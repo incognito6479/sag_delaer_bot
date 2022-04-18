@@ -29,30 +29,22 @@ async def send_welcome(message: types.Message):
 @dp.message_handler()
 async def echo(message: types.Message):
     sent_answer = False
-    # cities = City.objects.all()
-    # dealers = Dealer.objects.all()
-    # collections = Collection.objects.all()
-    # sub_collections = SubCollection.objects.all()
-    # for collection in collections:
-    collection = Collection.objects.filter(name=message.text)
+    collection = Collection.objects.filter(name__exact=str(message.text))
     if collection:
         collection = collection.first()
         sent_answer = True
         text = 'Выберите коллекцию ' + collection.name
         await message.answer(text, reply_markup=kb.get_sub_collections_kb(collection.id))
-    # for sub_collection in sub_collections:
-    sub_collection = SubCollection.objects.filter(name=message.text)
+    sub_collection = SubCollection.objects.filter(name__exact=str(message.text))
     if sub_collection:
         sub_collection = sub_collection.first()
         sent_answer = True
         await message.answer(sub_collection.link)
-    # for city in cities:
-    city = City.objects.filter(name=message.text)
+    city = City.objects.filter(name__exact=str(message.text))
     if city:
         city = city.first()
         text = ''
         dealer = Dealer.objects.filter(city_id=city.id)
-        # for dealer in dealers:
         if dealer:
             dealer = dealer.first()
             text += dealer.name + '\n📍 Адрес: ' + dealer.address
