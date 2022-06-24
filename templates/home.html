@@ -83,11 +83,9 @@
                               <div class="col-xxl-4 col-lg-6 object_box height-50">
                                 <a href="{% url 'collection_detail_view' collection.id %}">
                                     <div class="project-box">
-{#                                        {% if collection.has_sub == True %}#}
-{#                                            <span class="badge badge-primary">#}
-{#                                                Подколлекция <i class="fa fa-check"></i>#}
-{#                                            </span>#}
-{#                                        {% endif %}#}
+                                        <span class="badge badge-primary">
+                                            Позиция: <b>{{ collection.order_number|default:" " }}</b>
+                                        </span>
                                       <h6>{{ collection.name }}</h6>
 {#                                      <div class="media text-center">#}
 {#                                        <div class="media-body">#}
@@ -96,6 +94,7 @@
 {#                                        </div>#}
 {#                                      </div>#}
                                       <p class="w-100 height-35 overflow-auto">{{ collection.comment|default:"---" }}</p>
+                                        <p>Кол. коллекции: {{ collection.subcollection_number }}</p>
 {#                                      <div class="row details justify-content-between">#}
 {#                                        <div class="col-6"><span>Ответственный</span></div>#}
 {#                                        <div class="col-6 {% if object.status == 'active' %}font-primary{% else %}font-warning{% endif %}">{{ object.user }}</div>#}

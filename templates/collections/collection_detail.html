@@ -50,6 +50,7 @@
                                     <tr>
                                       <th scope="row">{{ collection.id }}</th>
                                       <td>{{ collection.name }}</td>
+                                      <td>{{ collection.order_number|default:"-" }}</td>
                                       <td class="d-flex justify-content-start">
                                         <button class="btn-sm btn-danger object_pre_delete_btn"
                                             type="button" data-bs-toggle="modal" data-id="{{ collection.id }}"

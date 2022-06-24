@@ -1,13 +1,13 @@
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Count
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import View, ListView, CreateView, DetailView, UpdateView, DeleteView
 from mainapp.tasks import send_sms_to_users_collections
 from mainapp.models import *
 from mainapp.forms import *
-# from mainapp.task import send_sms_to_users_collections
 
 
 def url_dispatch(request):
@@ -128,7 +128,8 @@ class HomeView(LoginRequiredMixin, ListView):
         return context
 
     def get_queryset(self):
-        queryset = Collection.objects.all()
+        queryset = Collection.objects.prefetch_related('sub_collections') \
+            .annotate(subcollection_number=Count('sub_collections')).all()
         if self.request.GET.get('title'):
             queryset = queryset.filter(name__icontains=self.request.GET.get('title'))
         return queryset

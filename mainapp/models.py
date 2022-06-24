@@ -53,7 +53,7 @@ class SubCollection(models.Model):
     name = models.CharField(max_length=200, verbose_name="Имя")
     link = models.CharField(max_length=200, verbose_name="Ссылка")
     collection = models.ForeignKey(Collection, on_delete=models.CASCADE, verbose_name="Категория",
-                                   blank=True, null=True)
+                                   blank=True, null=True, related_name="sub_collections")
 
     def __str__(self):
         return f"{self.name}"
