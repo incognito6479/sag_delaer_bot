@@ -20,7 +20,7 @@ start_kb.add(buttons['catalog']).add(buttons['dealers']).add(buttons['contacts']
 
 def get_collections_kb(message):
     collections_kb = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    collections = Collection.objects.all().order_by('-order_number')
+    collections = Collection.objects.all().order_by('order_number')
     n = 1
     keyboard = {}
     for collection in collections:
