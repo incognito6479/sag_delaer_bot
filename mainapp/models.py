@@ -25,9 +25,7 @@ class City(models.Model):
 
 class Collection(models.Model):
     name = models.CharField(max_length=200, verbose_name="Имя")
-    # comment = models.CharField(max_length=200, null=True, blank=True, verbose_name="Комментарий")
-
-    # has_sub = models.BooleanField(verbose_name="Имеет подколлекцию")
+    order_number = models.IntegerField(null=True, blank=True, verbose_name="Очередь в списке")
 
     def __str__(self):
         return f"{self.name}"

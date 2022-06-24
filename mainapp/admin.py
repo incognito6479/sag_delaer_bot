@@ -8,7 +8,7 @@ class SubCollectionInline(admin.StackedInline):
 
 @admin.register(Collection)
 class CollectionAdminModel(admin.ModelAdmin):
-    list_display = ('name', )
+    list_display = ('name', 'order_number')
     inlines = [SubCollectionInline, ]
 
 
