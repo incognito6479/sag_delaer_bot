@@ -29,4 +29,4 @@ class CityModelForm(forms.ModelForm):
 class SubCollectionModelForm(forms.ModelForm):
     class Meta:
         model = SubCollection
-        fields = "name", "link"
+        fields = "name", "link", "order_number"

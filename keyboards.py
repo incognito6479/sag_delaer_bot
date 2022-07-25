@@ -47,7 +47,7 @@ def get_collections_kb(message):
 
 def get_sub_collections_kb(collection):
     sub_collections_kb = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    sub_collections = SubCollection.objects.all()
+    sub_collections = SubCollection.objects.all().order_by('order_number')
     for sub_collection in sub_collections:
         if sub_collection.collection_id == collection:
             sub_collections_kb.add(types.KeyboardButton(str(sub_collection.name)))

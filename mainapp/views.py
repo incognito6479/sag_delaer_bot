@@ -145,7 +145,7 @@ class CollectionCreateView(LoginRequiredMixin, CreateView):
 class SubCollectionUpdateView(LoginRequiredMixin, UpdateView):
     # login_url = redirect('login_view')
     model = SubCollection
-    fields = ('name', 'link')
+    fields = ('name', 'link', 'order_number')
     template_name = 'collections/sub_collection_update.html'
     context_object_name = 'sub_collection'
 
@@ -190,7 +190,8 @@ def sub_collection_create_view(request, pk):
     obj = SubCollection.objects.create(
         collection_id=pk,
         name=request.POST.get('name'),
-        link=request.POST.get('link')
+        link=request.POST.get('link'),
+        order_number=request.POST.get('order_number')
     )
     send_sms_to_users_collections.delay(obj.id)
     return redirect('collection_detail_view', pk=pk)

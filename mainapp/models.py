@@ -54,6 +54,7 @@ class SubCollection(models.Model):
     link = models.CharField(max_length=200, verbose_name="Ссылка")
     collection = models.ForeignKey(Collection, on_delete=models.CASCADE, verbose_name="Категория",
                                    blank=True, null=True, related_name="sub_collections")
+    order_number = models.IntegerField(null=True, blank=True, verbose_name="Очередь в списке")
 
     def __str__(self):
         return f"{self.name}"

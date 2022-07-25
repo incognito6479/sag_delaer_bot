@@ -116,13 +116,15 @@
                                     <tbody>
                                         {% for sub_collection in sub_collections %}
                                           <tr>
-                                            <td>{{ sub_collection.id }}</td>
+                                            <td>{{ forloop.counter }}</td>
                                             <td>{{ sub_collection.name }}</td>
+
                                             <td>
                                                 <a href="http://{{ sub_collection.link }}" target="_blank">
                                                     {{ sub_collection.link }}
                                                 </a>
                                             </td>
+                                            <td>{{ sub_collection.order_number|default:"0" }}</td>
                                             <td class="p-0 m-0 d-flex justify-content-center height-100 p-2">
                                                 <button class="btn-sm btn-danger plan_item_item_pre_delete_btn"
                                                 type="button" data-bs-toggle="modal" data-id="{{ sub_collection.id }}"
