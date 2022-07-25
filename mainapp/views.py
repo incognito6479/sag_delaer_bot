@@ -207,7 +207,7 @@ class CollectionDetail(LoginRequiredMixin, DetailView):
         context = super(CollectionDetail, self).get_context_data(**kwargs)
         context['collection_form'] = CollectionModelForm
         context['sub_collection_form'] = SubCollectionModelForm
-        context['sub_collections'] = SubCollection.objects.filter(collection_id=self.kwargs['pk'])
+        context['sub_collections'] = SubCollection.objects.filter(collection_id=self.kwargs['pk']).order_by('order_number')
         return context
 
 
